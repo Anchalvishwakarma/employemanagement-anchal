@@ -60,7 +60,7 @@ body{
 .header{
 	position: absolute;
 	top: calc(50% - 35px);
-	left: calc(40% - 255px);
+	left: calc(30% - 255px);
 	z-index: 2;
 }
 

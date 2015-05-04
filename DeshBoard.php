@@ -7,6 +7,7 @@ error_reporting(0);
       header('Location:index.php');
    }
 
-
 ?>
-<a href="logout.php">LOGOUT</a>
+<?php include('menu.php');?>
+</body>
+</html>

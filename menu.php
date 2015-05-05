@@ -40,6 +40,7 @@
 <ul id="menu">
     <li><a href="/emp.php">Employee Management</a></li>
     <li><a href="/dept.php">Department management</a></li>
-    <li><a href="/index.html">JobTitles Management</a></li>
+    <li><a href="/createmanager.php">Manager management</a></li>
+    <li><a href="/jobtitle.php">JobTitles Management</a></li>
     <li><a href="/logout.php">Logout</a></li>
 </ul>

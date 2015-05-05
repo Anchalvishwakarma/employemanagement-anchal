@@ -131,7 +131,7 @@ class DBFunctions extends DBConnect{
 
             }
             $this->query.=$value;
-           return $this->run();
+            return $this->run();
         }
     }
 
@@ -167,6 +167,11 @@ class DBFunctions extends DBConnect{
         return $this;
     }
 
+
+     public function getLastInsertedId()
+     {
+         return $this->dbs->lastInsertId();
+     }
 
 }//end class
 

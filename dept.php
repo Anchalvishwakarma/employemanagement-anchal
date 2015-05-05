@@ -38,7 +38,7 @@ $obj = new DBFunctions();
     }
 //end inserting new department
 
-  if(isset($_GET['action']))
+   if(isset($_GET['action']))
   {
 
       if($_GET['action']=='edit')
@@ -54,8 +54,10 @@ $obj = new DBFunctions();
           $id = $_REQUEST['id'];
           $where = array("id='" .$id. "'");
           $obj->delete()->from('departments')->where($where)->run();
-          echo "<script>alert('record deleted')</script>";
+          $msg='Record Deleted';
+
       }
+
   }
 
 
@@ -68,7 +70,7 @@ $obj = new DBFunctions();
     $Updatedata = array('name' => $deptname,'modified' => $date);
     $where = array('id ='."'".$id."'");
     $obj->update('departments',$Updatedata)->where($where)->run();
-      echo "<script>alert('record Updated')</script>";
+    $msg="Record Updated";
 
   }
 
@@ -81,11 +83,12 @@ $obj = new DBFunctions();
     <?php }else{?>
    <h1>Create New Department</h1>
 <?php }?>
-<?php if( isset($msg)){?>
-<div style="height:25px;width: 80%;background-color: coral;text-align: center;color: red;font-size: 15px;"><?php echo $msg?></div>
+<?php if( isset($msg) ){?>
+<div style="height:25px;width: 80%;background-color: coral;text-align: center;color: red;font-size: 15px;">
+    <?php echo $msg;unset($msg);?></div>
 <?php } ?>
 
-<form action="<?php if(isset($editdata)){echo "dept.php";}?>" method="post">
+<form action="dept.php" method="post">
 <table>
 
     <tr>

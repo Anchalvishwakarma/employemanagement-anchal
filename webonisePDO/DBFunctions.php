@@ -25,6 +25,7 @@ class DBFunctions extends DBConnect{
 
      public function select( $column = NULL )
     {
+
          $this->findQuery = 1 ;  //set query ie select query
          if( is_null( $column ) )
          {
@@ -37,8 +38,12 @@ class DBFunctions extends DBConnect{
                 $this->query ="SELECT ".$createdColumns;
             }
          }
+
         return $this;
     }
+
+
+
 
      public function from( $from = NULL )
     {
@@ -64,11 +69,11 @@ class DBFunctions extends DBConnect{
 
 
             try {
-                   //die($this->query);
+
                   $this->stmt = $this->dbs->prepare($this->query);
                   $this->stmt->execute();
                   $this->resultSetColumnCount = $this->stmt->rowCount() ;
-                //die(var_dump( $this->resultSetColumnCount));
+
                 if ($type== 1) {
                     $this->resultSet = $this->stmt->fetchAll( PDO::FETCH_ASSOC );
                 }else {
@@ -133,6 +138,7 @@ class DBFunctions extends DBConnect{
             $this->query.=$value;
             return $this->run();
         }
+
     }
 
      public function update( $table , $data)
@@ -168,10 +174,63 @@ class DBFunctions extends DBConnect{
     }
 
 
-     public function getLastInsertedId()
+      public function getLastInsertedId()
      {
          return $this->dbs->lastInsertId();
      }
+
+
+    public function passJoinQuery( $query )
+    {
+       if(! is_null($query) )
+       {
+           $this->stmt = $this->dbs->prepare($query );
+           $this->stmt->execute();
+           $this->resultSet = $this->stmt->fetchAll( PDO::FETCH_NUM );
+
+       }
+
+    }
+
+    public function getEmployeeName( $id )
+    {
+
+        if( $id != 0 )
+        {
+            $where = array("id='" .$id. "'");
+            $this->select(array('name'))->from('employees')->where($where)->run();
+            $data = $this->resultSet;
+            return $data[0]['name'];
+        }
+
+    }
+
+
+    public function getDeptName( $id )
+    {
+
+        if( $id != 0 )
+        {
+            $where = array("id='" .$id. "'");
+            $this->select(array('name'))->from('departments')->where($where)->run();
+            $data = $this->resultSet;
+            return $data[0]['name'];
+        }
+
+    }
+
+    public function getJobTitleName( $id )
+    {
+
+        if( $id != 0 )
+        {
+            $where = array("id='" .$id. "'");
+            $this->select(array('title'))->from('job_titles')->where($where)->run();
+            $data = $this->resultSet;
+            return $data[0]['title'];
+        }
+
+    }
 
 }//end class
 

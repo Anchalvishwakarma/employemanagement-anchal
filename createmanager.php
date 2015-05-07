@@ -38,7 +38,7 @@ $data = $obj->resultSet;
 <form action="createmanager.php" method="">
     <table>
       <tr>
-          <td>Manager Id</td>
+          <td>Manager Id (EMP-ID)</subscript></td>
           <td><input type="text" name="mang_id"></td>
       </tr>
       <tr>
@@ -65,3 +65,41 @@ $data = $obj->resultSet;
         </tr>
     </table>
 </form>
+<pre>
+<?php
+   $query="SELECT emp.id,emp.name,dept.name,dept_mgr.from_date,dept_mgr.to_date FROM employees as emp  INNER JOIN departments_managers as dept_mgr ON emp.id = dept_mgr.manager_id LEFT JOIN departments as dept ON dept_mgr.department_id = dept.id";
+
+    $obj->passJoinQuery( $query );
+    $data = $obj->resultSet;
+    //print_r($data);
+?>
+<br>
+<h1>Manager Detail</h1>
+<table border="1">
+    <tr>
+        <td>EMP-ID</td>
+        <td>MANAGER NAME</td>
+        <td>DEPARTMENT</td>
+        <td>FROM DATE</td>
+        <td>TO DATE</td>
+    </tr>
+
+      <?php
+         foreach($data as $val )
+         {
+             ?>
+             <tr>
+                <td><?php echo $val[0]?></td>
+                <td><?php echo $val[1]?></td>
+                <td><?php echo $val[2]?></td>
+                <td><?php echo $val[3]?></td>
+                <td><?php echo $val[4]?></td>
+             </tr>
+
+      <?php } ?>
+
+
+
+
+
+</table>

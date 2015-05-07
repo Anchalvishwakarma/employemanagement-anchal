@@ -15,6 +15,8 @@ $obj = new DBFunctions();
     if(isset($_REQUEST['Save']))
    {
 
+
+
       $emp_name    = $_REQUEST['emp_name'];
       $emp_manager = $_REQUEST['emp_manager'];
       $dept        = $_REQUEST['dept'];
@@ -64,6 +66,9 @@ $obj = new DBFunctions();
 <form action="emp.php" method="post">
 
     <table>
+        <tr>
+            <td style="color: red">* All FIELDS ARE REQUIRED</td>
+        </tr>
         <tr>
             <td>EMP NAME</td>
             <td><input type="text" name="emp_name"></td>
@@ -152,13 +157,13 @@ $obj = new DBFunctions();
 <?php
    $obj->select()->from('employees')->run();
    $AllempData = $obj->resultSet;
-   print_r($AllempData);
+   //print_r($AllempData);
 ?>
         <h1>Current Employee</h1>
 
     <table border="1">
         <tr>
-            <td colspan="8" align="center"><h1>Employee Detail</h1></td>
+            <td colspan="9" align="center"><h1>Employee Detail</h1></td>
         </tr>
         <tr>
             <td>Emp ID</td>
@@ -169,6 +174,7 @@ $obj = new DBFunctions();
             <td>DOB</td>
             <td>SALARY</td>
             <td>DEPARTMENT</td>
+            <td>JOB TITLE</td>
         </tr>
         <?php
             foreach($AllempData as $val)
@@ -176,12 +182,13 @@ $obj = new DBFunctions();
                 <tr>
                     <td><?php echo $val['id']?></td>
                     <td><?php echo $val['name'] ?></td>
-                    <td><?php echo ($val['manager_id']==0 )?'MANAGER':'';?></td>
+                    <td><?php echo ($val['manager_id']==0 )?'MANAGER':$obj->getEmployeeName($val['manager_id']);?></td>
                     <td><?php echo $val['dob'] ?></td>
                     <td><?php echo $val['gender'] ?></td>
                     <td><?php echo $val['hire_date'] ?></td>
-                    <td><?php echo $val[''] ?></td>
-                    <td><?php echo $val[''] ?></td>
+                    <td><a href="empSalaryView.php?id=<?php echo $val['id'] ?>">view Salary</a></td>
+                    <td><a href="empDeptView.php?id=<?php echo $val['id'] ?>">view Department</a></td>
+                    <td><a href="empJobtitleView.php?id=<?php echo $val['id'] ?>">view JobTitle</a></td>
                  </tr>
 
        <?php  } ?>

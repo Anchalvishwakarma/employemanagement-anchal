@@ -137,8 +137,6 @@ class DBFunctions extends DBConnect{
     }
 
 
-
-
      public function insert($tbl_name,$data)
     {
           $this->query="INSERT INTO $tbl_name ( ";
@@ -165,6 +163,7 @@ class DBFunctions extends DBConnect{
 
     }
 
+
      public function update( $table , $data)
     {
         $this->query.="UPDATE $table SET ";
@@ -190,21 +189,20 @@ class DBFunctions extends DBConnect{
     }
 
 
-
-    public function delete()
+     public function delete()
     {
         $this->query.="DELETE ";
         return $this;
     }
 
 
-      public function getLastInsertedId()
+     public function getLastInsertedId()
      {
          return $this->dbs->lastInsertId();
      }
 
 
-    public function passJoinQuery( $query )
+     public function passJoinQuery( $query )
     {
        if(! is_null($query) )
        {
@@ -216,7 +214,8 @@ class DBFunctions extends DBConnect{
 
     }
 
-    public function getEmployeeName( $id )
+
+     public function getEmployeeName( $id )
     {
 
         if( $id != 0 )
@@ -230,7 +229,7 @@ class DBFunctions extends DBConnect{
     }
 
 
-    public function getDeptName( $id )
+     public function getDeptName( $id )
     {
 
         if( $id != 0 )
@@ -243,7 +242,8 @@ class DBFunctions extends DBConnect{
 
     }
 
-    public function getJobTitleName( $id )
+
+     public function getJobTitleName( $id )
     {
 
         if( $id != 0 )
@@ -253,6 +253,21 @@ class DBFunctions extends DBConnect{
             $data = $this->resultSet;
             return $data[0]['title'];
         }
+
+    }
+
+
+     public function getEmployeeData( $id=7 )
+    {
+       $this->stmt = $this->dbs->prepare("CALL GetAllEmployees($id,@curr_mgr_name,@curr_sal,@curr_dept,@title,@dob,@gender,@hiredate);");
+     $this->stmt->execute();
+     return  $this->dbs->query("select @curr_mgr_name as current_manager,
+                                       @curr_sal as current_salary,
+                                       @curr_dept as current_department,
+                                       @title as job_title,
+                                       @dob as DOB,
+                                       @gender as gender,
+                                       @hiredate as hire_date;")->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

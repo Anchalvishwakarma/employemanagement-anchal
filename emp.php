@@ -67,7 +67,7 @@ $obj = new DBFunctions();
 
     <table>
         <tr>
-            <td style="color: red">* All FIELDS ARE REQUIRED</td>
+            <td style="color: red">* All Fields are required</td>
         </tr>
         <tr>
             <td>EMP NAME</td>

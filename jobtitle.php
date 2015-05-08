@@ -60,18 +60,23 @@ if(isset($_GET['action']))
 }
 
 
-//for department update
-if(isset($_REQUEST['editSub']))
-{
-    $id=$_REQUEST['id'];
-    $deptname =$_REQUEST['job_title'];
-    $date = date("Y-m-d H:i:s");
-    $Updatedata = array('title' => $deptname,'modified' => $date);
-    $where = array('id ='."'".$id."'");
-    $obj->update('job_titles',$Updatedata)->where($where)->run();
-    $msg = "Record updated";
+    //for department update
+   if(isset($_REQUEST['editSub']))
+  {
 
-}
+    $id       =trim($_REQUEST['id']);
+    $deptname =trim($_REQUEST['job_title']);
+      if($deptname != '') {
+          $date = date("Y-m-d H:i:s");
+          $Updatedata = array('title' => $deptname, 'modified' => $date);
+          $where = array('id =' . "'" . $id . "'");
+          $obj->update('job_titles', $Updatedata)->where($where)->run();
+          $msg = "Record updated";
+      }else{
+           $msg = "*Name Required";
+      }
+
+  }
 
 
 ?>

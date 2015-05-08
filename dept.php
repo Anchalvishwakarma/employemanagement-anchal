@@ -64,14 +64,19 @@ $obj = new DBFunctions();
    //for department update
    if(isset($_REQUEST['editSub']))
   {
-    $id=$_REQUEST['id'];
-    $deptname =$_REQUEST['dept_name'];
-    $date = date("Y-m-d H:i:s");
-    $Updatedata = array('name' => $deptname,'modified' => $date);
-    $where = array('id ='."'".$id."'");
-    $obj->update('departments',$Updatedata)->where($where)->run();
-    $msg="Record Updated";
+        $id=  trim ($_REQUEST['id']);
+        $deptname = trim($_REQUEST['dept_name']);
 
+      if($id != '' && $deptname !='') {
+
+          $date = date("Y-m-d H:i:s");
+          $Updatedata = array('name' => $deptname, 'modified' => $date);
+          $where = array('id =' . "'" . $id . "'");
+          $obj->update('departments', $Updatedata)->where($where)->run();
+          $msg = "Record Updated";
+      }else{
+          $msg='*Name Required';
+      }
   }
 
 

@@ -12,7 +12,7 @@ $obj = new DBFunctions();
 
 
 
-//add department
+//add salary
 if(isset($_REQUEST['sub']))
 {
 
@@ -20,6 +20,8 @@ if(isset($_REQUEST['sub']))
     $salary =$_REQUEST['salary'];
     $salFromdate = $_REQUEST['sal-fromdate'];
     $saltodate  = $_REQUEST['sal-todate'];
+    $date      = date("Y-m-d H:i:s");
+
     $insertdata = array('employee_id' =>$empid,'salary'=> $salary,'from_date'=>$salFromdate,'to_date'=>$saltodate,'created' => $date, 'modified' => $date);
     $count = $obj->insert('salaries', $insertdata);
 }
@@ -38,9 +40,18 @@ if($_GET['id'] != NULL) {
     $where = array("employee_id='" . $id . "'");
     $obj->select(array('salary','from_date','to_date'))->from('salaries')->where($where)->run();
     $salData = $obj->resultSet;
+    unset($obj->query);
+
+
+    //get current salary
+    $obj->select(array('salary'))->from('salaries')->where($where)->orderby('created')->limit(1)->run();
+    $currentSal = $obj->resultSet;
+    unset($obj->query);
 
 }
 ?>
+<?php include('menu.php');?>
+<br>
 <h1>Employee Salary Detail</h1>
   <table border="1">
       <tr>
@@ -51,6 +62,11 @@ if($_GET['id'] != NULL) {
           <td>EMP NAME</td>
           <td><?php echo $empData[0]['name']?></td>
       </tr>
+      <tr>
+          <td>CURRENT SALARY</td>
+          <td><?php echo $currentSal[0]['salary'] ?></td>
+      </tr>
+
       <table border="1">
           <tr>
               <td>SALARY</td>
@@ -79,7 +95,7 @@ if($_GET['id'] != NULL) {
       </table>
 
   </table>
-
+<br>
 <form action="empSalaryView.php?id=<?php echo $id?>" method="post">
     <table border="1">
         <tr>
@@ -97,7 +113,7 @@ if($_GET['id'] != NULL) {
             <td><input type="date" name="sal-todate"></td>
         </tr>
         <tr>
-            <td colspan="6" align="center"><input type="submit" name="sub" value="ADD Department  "></td>
+            <td colspan="6" align="center"><input type="submit" name="sub" value="ADD Salary"></td>
         </tr>
     </table>
 </form>

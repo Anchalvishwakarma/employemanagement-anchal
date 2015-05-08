@@ -54,6 +54,30 @@ class DBFunctions extends DBConnect{
     }
 
 
+
+
+
+    public  function orderby($column,$type='DESC'){
+
+
+        if(! is_null($column) ){
+            $this->query .= " ORDER BY ".$column." ".$type;
+        }
+
+        return $this;
+    }
+
+
+
+
+    public function limit( $value=1 ){
+
+        $this->query.= " LIMIT ".$value;
+        //die($this->query);
+        return $this;
+    }
+
+
     /*
      * For Array  FETCH_ASSOC result set Pass 1 as parameter
      * For Object FETCH_OBJ  result set pass 2 as parameter

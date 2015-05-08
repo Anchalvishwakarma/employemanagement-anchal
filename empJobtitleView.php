@@ -20,6 +20,8 @@ $obj = new DBFunctions();
     $jobtitle =$_REQUEST['jobtitle'];
     $jobFromdate = $_REQUEST['job-fromdate'];
     $jobtodate  = $_REQUEST['job-todate'];
+    $date      = date("Y-m-d H:i:s");
+
     $insertdata = array('employee_id' =>$empid,'job_title_id'=> $jobtitle,'from_date'=>$jobFromdate,'to_date'=>$jobtodate,'created' => $date, 'modified' => $date);
     $count = $obj->insert('employees_titles', $insertdata);
  }
@@ -35,14 +37,22 @@ if($_GET['id'] != NULL) {
     $empData = $obj->resultSet;
     unset($obj->query);
 
-    //get salary detail
-
+    //get jobtitle
     $where = array("employee_id='" . $id . "'");
     $obj->select(array('job_title_id','from_date','to_date'))->from('employees_titles')->where($where)->run();
     $salData = $obj->resultSet;
 
+
+    //current jobtitle
+    $where = array("employee_id='" . $id . "'");
+    $obj->select(array('job_title_id'))->from('employees_titles')->where($where)->orderby('created')->limit(1)->run();
+    $currentjob = $obj->resultSet;
+    unset($obj->query);
+
 }
 ?>
+<?php include('menu.php');?>
+<br>
 <h1>Employee Department Detail</h1>
 <table border="1">
     <tr>
@@ -52,6 +62,10 @@ if($_GET['id'] != NULL) {
     <tr>
         <td>EMP NAME</td>
         <td><?php echo $empData[0]['name']?></td>
+    </tr>
+    <tr>
+        <td>CURRENT JOB-TITLE</td>
+        <td><?php echo $obj->getJobTitleName( $currentjob[0]['job_title_id'] )?></td>
     </tr>
     <table border="1">
         <tr>

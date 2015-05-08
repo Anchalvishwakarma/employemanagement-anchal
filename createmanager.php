@@ -74,6 +74,7 @@ $data = $obj->resultSet;
     //print_r($data);
 ?>
 <br>
+
 <h1>Manager Detail</h1>
 <table border="1">
     <tr>

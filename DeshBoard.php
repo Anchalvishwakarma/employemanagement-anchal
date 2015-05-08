@@ -9,5 +9,7 @@ error_reporting(0);
 
 ?>
 <?php include('menu.php');?>
+<br>
+<h1>DASHBOARD</h1>
 </body>
 </html>

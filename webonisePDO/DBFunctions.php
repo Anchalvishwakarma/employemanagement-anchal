@@ -259,7 +259,7 @@ class DBFunctions extends DBConnect{
 
      public function getEmployeeData( $id=7 )
     {
-       $this->stmt = $this->dbs->prepare("CALL GetAllEmployees($id,@curr_mgr_name,@curr_sal,@curr_dept,@title,@dob,@gender,@hiredate);");
+       $this->stmt = $this->dbs->prepare("CALL GetAllEmployees($id,@curr_mgr_name,@curr_sal,@curr_dept,@title,@dob,@gender,@hiredate,@LastTitle);");
      $this->stmt->execute();
      return  $this->dbs->query("select @curr_mgr_name as current_manager,
                                        @curr_sal as current_salary,
@@ -267,7 +267,8 @@ class DBFunctions extends DBConnect{
                                        @title as job_title,
                                        @dob as DOB,
                                        @gender as gender,
-                                       @hiredate as hire_date;")->fetchAll(PDO::FETCH_ASSOC);
+                                       @hiredate as hire_date,
+                                       @LastTitle as LastTitle;")->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

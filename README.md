@@ -6,8 +6,7 @@ ORDER BY  `created` DESC
 LIMIT 1
 
 
-SELECT @curr_mgr_name , @curr_sal , @curr_dept
-
+SELECT call GetAllemployees( 7, @curr_mgr_name , @curr_sal , @curr_dept , @cur_title , @dob , @gender , @hiredate , @lasttitle )
 
 
 
@@ -67,9 +66,19 @@ current_title-->ok,
 hire_date--ok,
 gender--ok,
 dob--ok,
-last_title,
+last_title--(ok),
 last_salary,
 last_title_from_date,
 last_title_to_date,
 last_department_name: (if change "name of dept" else 'same as current')
 salary_hike_in_percentage
+
+
+
+SELECT title FROM job_titles WHERE id = (  SELECT IFNULL( (  SELECT job_title_id FROM employees_titles WHERE employee_id =7 ORDER BY created DESC  LIMIT 1,2 ),  'kfjdhg' ) )
+ 
+ SELECT salary, created
+ FROM  `salaries` 
+ WHERE  `employee_id` =7
+ ORDER BY created DESC 
+ LIMIT 1 , 1

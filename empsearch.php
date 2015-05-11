@@ -45,6 +45,7 @@ $obj = new DBFunctions();
             <td>Date of Birth</td>
             <td>Gender</td>
             <td>Hire Date</td>
+            <td>LastTitle</td>
         </tr>
         <?php foreach($data as $record){?>
                 <tr>
@@ -55,6 +56,7 @@ $obj = new DBFunctions();
                     <td><?php echo $record['DOB']?></td>
                     <td><?php echo ($record['gender']=='M')?'MALE':'FEMALE' ;?></td>
                     <td><?php echo $record['hire_date']?></td>
+                    <td><?php echo $record['LastTitle']?></td>
                 </tr>
         <?php } ?>
     </table>
